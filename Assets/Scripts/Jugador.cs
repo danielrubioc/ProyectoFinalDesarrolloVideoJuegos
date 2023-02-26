@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Jugador : MonoBehaviour
 {
-    public float velocidadMovimiento = 2.0f;
+    public float velocidadMovimiento = 0.5f;
     private Rigidbody rb;
 
     // Start is called before the first frame update
