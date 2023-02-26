@@ -23,8 +23,6 @@ public class Jugador : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        Debug.Log("Horizontal: " + horizontal);
-
         Vector3 movimiento = new Vector3(horizontal, 0, vertical);
 
      if(movimiento != Vector3.zero)
@@ -37,6 +35,6 @@ public class Jugador : MonoBehaviour
             anim.SetBool("isWalking", false);
         }
 
-        rb.AddForce(movimiento * velocidadMovimiento * Time.deltaTime);
+        rb.AddForce(movimiento * velocidadMovimiento * Time.deltaTime, ForceMode.Impulse);
     }
 }
