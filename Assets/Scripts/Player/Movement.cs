@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float velocidadMovimiento = 2.0f;
+    public float velocidadMovimiento = 100;
     public bool isWalking = false;
     private Rigidbody rb; 
 
@@ -33,8 +33,12 @@ public class Movement : MonoBehaviour
         else
         {
             isWalking = false;
-        }
+        } 
+        rb.AddForce(movimiento * velocidadMovimiento * Time.deltaTime);
+    }
 
-        rb.AddForce(movimiento * velocidadMovimiento * Time.deltaTime, ForceMode.Impulse);
+    void Respawn()
+    {
+        transform.position = new Vector3(0, 0, 0);
     }
 }

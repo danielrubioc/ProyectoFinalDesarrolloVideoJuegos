@@ -5,8 +5,14 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    public GameObject explosionEffect;
+    public GameObject enemy;
+    public float explosionRadius = 5f;
+    public float explosionForce = 30f;
+    public float damage = 100f;
     private float health = 100f;
-    private float damage = 10f;
+    private float counter = 0f;
+   
     // Update is called once per frame
     void Update()
     {
@@ -19,6 +25,25 @@ public class Enemy : MonoBehaviour
         //get the player position
         GameObject player = GameObject.Find("Player");
         agent.SetDestination(player.transform.position);
+    }
+
+
+    private void ExplosionEffect()
+    {
+        /* Instantiate(explosion, transform.position, transform.rotation); */
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (Collider nearbyObject in colliders)
+        {
+            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius); 
+            }
+        }
+
+        Instantiate(explosionEffect, transform.position, transform.rotation);
+        Destroy(enemy, 0.2f); 
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -36,9 +61,29 @@ public class Enemy : MonoBehaviour
         Debug.Log("OnTriggerEnter");
         if (other.gameObject.name == "Player")
         {
-            Debug.Log("Player has been hit");
-            /* other.gameObject.GetComponent<Jugador>().TakeDamage(damage); */
+            Debug.Log("Player has been hit"); 
         }
     }
- 
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.name == "Player")
+        { 
+            counter += Time.deltaTime;
+            if (counter >= 4)
+            {
+                Debug.Log("Explota"); 
+                ExplosionEffect();
+                /* other.gameObject.GetComponent<Jugador>().TakeDamage(damage); */
+            } 
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Player")
+        {
+            counter = 0;
+        }
+    }
 }
