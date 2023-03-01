@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
         GameObject player = GameObject.Find("Player");
         agent.SetDestination(player.transform.position);
         //set random value between 1 and 3
-        randomDificulty = Random.Range(1, 4);
+        randomDificulty = Random.Range(1, 3);
     }
 
     void enemyDificulty()
