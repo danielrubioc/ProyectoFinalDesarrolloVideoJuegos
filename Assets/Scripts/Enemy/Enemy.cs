@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public float explosionRadius = 5f;
     public float explosionForce = 30f;
     public float damage = 100f;
+    public int selfDestructTime = 4;
     private float health = 100f;
     private float counter = 0f;
    
@@ -70,7 +71,7 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.name == "Player")
         { 
             counter += Time.deltaTime;
-            if (counter >= 4)
+            if (counter >= selfDestructTime)
             {
                 Debug.Log("Explota"); 
                 ExplosionEffect();
