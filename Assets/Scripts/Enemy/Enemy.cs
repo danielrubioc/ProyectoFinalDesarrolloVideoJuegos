@@ -15,7 +15,13 @@ public class Enemy : MonoBehaviour
     private float counter = 0f;
 
     private int randomDificulty;
-   
+
+    //start
+    void Start()
+    {
+        enemyDificulty();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -29,12 +35,11 @@ public class Enemy : MonoBehaviour
         GameObject player = GameObject.Find("Player");
         agent.SetDestination(player.transform.position);
         //set random value between 1 and 3
-        randomDificulty = Random.Range(1, 3);
     }
 
     void enemyDificulty()
     {
-        switch (randomDificulty)
+        switch (Random.Range(1, 3))
         {
             case 1:
                 selfDestructTime = 1;
